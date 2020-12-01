@@ -30,4 +30,7 @@ public class LuggageService {
         luggageRepository.deleteById(foundLuggage.get().getId());
     }
 
+    public Iterable<Luggage> findLuggageByUserId(Long id){
+        return luggageRepository.findLuggageByUserId(id);
+    }
 }

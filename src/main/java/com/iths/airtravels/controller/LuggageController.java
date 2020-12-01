@@ -24,6 +24,11 @@ public class LuggageController {
        return luggageService.findLuggageById(id);
     }
 
+    @GetMapping("/findbyuser/{id}")
+    public Iterable<Luggage> findAllLuggageByUserId(@PathVariable Long id){
+        return  luggageService.findLuggageByUserId(id);
+    }
+
     @PostMapping("/create")
     public Luggage createLuggage(@RequestBody Luggage luggage){
         return luggageService.createLuggage(luggage);
