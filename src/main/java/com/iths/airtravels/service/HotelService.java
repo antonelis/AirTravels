@@ -1,7 +1,6 @@
 package com.iths.airtravels.service;
 
 import com.iths.airtravels.entity.Hotel;
-import com.iths.airtravels.entity.Luggage;
 import com.iths.airtravels.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
