@@ -1,5 +1,6 @@
 package com.iths.airtravels.service;
 
+import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Ticket;
 import com.iths.airtravels.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,9 @@ public class TicketService {
     public void deleteTicketById(Long id){
         Optional<Ticket> foundTicket = ticketRepository.findById(id);
         ticketRepository.deleteById(foundTicket.get().getId());
+    }
+
+    public Iterable<Ticket> findTicketsByUserId(Long id){
+        return ticketRepository.findTicketsByUserId(id);
     }
 }

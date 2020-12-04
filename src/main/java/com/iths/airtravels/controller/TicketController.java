@@ -1,6 +1,7 @@
 package com.iths.airtravels.controller;
 
 
+import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Ticket;
 import com.iths.airtravels.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class TicketController {
     @GetMapping("/id/{id}")
     public Optional<Ticket> findTicketById(@PathVariable Long id) {
         return ticketService.findTicketById(id);
+    }
+
+    @GetMapping("/findbyuser/{id}")
+    public Iterable<Ticket> findTicketsByUserId(@PathVariable Long id){
+        return  ticketService.findTicketsByUserId(id);
     }
 
     @PostMapping("/create")
