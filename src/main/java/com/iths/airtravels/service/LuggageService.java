@@ -1,6 +1,5 @@
 package com.iths.airtravels.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.iths.airtravels.entity.Luggage;
 import com.iths.airtravels.repository.LuggageRepository;
@@ -10,8 +9,11 @@ import java.util.Optional;
 @Service
 public class LuggageService {
 
-    @Autowired
-    LuggageRepository luggageRepository;
+    final LuggageRepository luggageRepository;
+
+    public LuggageService(LuggageRepository luggageRepository) {
+        this.luggageRepository = luggageRepository;
+    }
 
     public Luggage createLuggage(Luggage luggage){
         return luggageRepository.save(luggage);

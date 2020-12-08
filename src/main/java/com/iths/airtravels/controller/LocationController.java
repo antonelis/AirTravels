@@ -2,7 +2,6 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.service.LocationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @RequestMapping("/location")
 public class LocationController {
 
-    @Autowired
-    LocationService locationService;
+    final LocationService locationService;
+
+    public LocationController(LocationService locationService) {
+        this.locationService = locationService;
+    }
 
     @GetMapping("/findall")
     public Iterable<Location> findAllLocations() {

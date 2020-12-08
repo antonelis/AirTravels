@@ -1,10 +1,7 @@
 package com.iths.airtravels.controller;
 
-
-import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Ticket;
 import com.iths.airtravels.service.TicketService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -13,8 +10,11 @@ import java.util.Optional;
 @RequestMapping("/ticket")
 public class TicketController {
 
-    @Autowired
-    TicketService ticketService;
+    final TicketService ticketService;
+
+    public TicketController(TicketService ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @GetMapping("/findall")
     public Iterable<Ticket> findAllTickets() {

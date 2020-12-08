@@ -2,7 +2,6 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.User;
 import com.iths.airtravels.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/findall")
     public Iterable<User> findAllUsers() {

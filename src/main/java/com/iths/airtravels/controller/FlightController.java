@@ -1,9 +1,7 @@
 package com.iths.airtravels.controller;
 
-
 import com.iths.airtravels.entity.Flight;
 import com.iths.airtravels.service.FlightService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -12,8 +10,11 @@ import java.util.Optional;
 @RequestMapping("/flight")
 public class FlightController {
 
-    @Autowired
-    FlightService flightService;
+    final FlightService flightService;
+
+    public FlightController(FlightService flightService) {
+        this.flightService = flightService;
+    }
 
     @GetMapping("/findall")
     public Iterable<Flight> findAllFlights() {

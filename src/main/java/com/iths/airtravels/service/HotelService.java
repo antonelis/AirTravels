@@ -2,7 +2,6 @@ package com.iths.airtravels.service;
 
 import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.repository.HotelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,8 +9,11 @@ import java.util.Optional;
 @Service
 public class HotelService {
 
-    @Autowired
-    HotelRepository hotelRepository;
+    final HotelRepository hotelRepository;
+
+    public HotelService(HotelRepository hotelRepository) {
+        this.hotelRepository = hotelRepository;
+    }
 
     public Hotel createHotel(Hotel hotel){
         return hotelRepository.save(hotel);
@@ -29,7 +31,6 @@ public class HotelService {
         Optional<Hotel> foundHotel = hotelRepository.findById(id);
         hotelRepository.deleteById(foundHotel.get().getId());
     }
-
 
     public Iterable<Hotel> findHotelsByLocationId(Long id){
         return hotelRepository.findHotelsByLocationId(id);

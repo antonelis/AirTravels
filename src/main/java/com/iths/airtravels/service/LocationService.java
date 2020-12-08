@@ -1,6 +1,5 @@
 package com.iths.airtravels.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.repository.LocationRepository;
@@ -10,8 +9,11 @@ import java.util.Optional;
 @Service
 public class LocationService {
 
-    @Autowired
-    LocationRepository locationRepository;
+    final LocationRepository locationRepository;
+
+    public LocationService(LocationRepository locationRepository) {
+        this.locationRepository = locationRepository;
+    }
 
     public Location createLocation(Location location){
         return locationRepository.save(location);

@@ -1,9 +1,7 @@
 package com.iths.airtravels.service;
 
-import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Ticket;
 import com.iths.airtravels.repository.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,8 +9,11 @@ import java.util.Optional;
 @Service
 public class TicketService {
 
-    @Autowired
-    TicketRepository ticketRepository;
+    final TicketRepository ticketRepository;
+
+    public TicketService(TicketRepository ticketRepository) {
+        this.ticketRepository = ticketRepository;
+    }
 
     public Ticket createTicket(Ticket ticket){
         return ticketRepository.save(ticket);

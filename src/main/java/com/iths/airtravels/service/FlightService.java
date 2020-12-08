@@ -2,7 +2,6 @@ package com.iths.airtravels.service;
 
 import com.iths.airtravels.entity.Flight;
 import com.iths.airtravels.repository.FlightRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -10,8 +9,11 @@ import java.util.Optional;
 @Service
 public class FlightService {
 
-    @Autowired
-    FlightRepository flightRepository;
+    final FlightRepository flightRepository;
+
+    public FlightService(FlightRepository flightRepository) {
+        this.flightRepository = flightRepository;
+    }
 
     public Flight createFlight(Flight flight){
         return flightRepository.save(flight);

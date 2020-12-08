@@ -2,7 +2,6 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Luggage;
 import com.iths.airtravels.service.LuggageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,8 +10,11 @@ import java.util.Optional;
 @RequestMapping("/luggage")
 public class LuggageController {
 
-    @Autowired
-    LuggageService luggageService;
+    final LuggageService luggageService;
+
+    public LuggageController(LuggageService luggageService) {
+        this.luggageService = luggageService;
+    }
 
     @GetMapping("/findall")
     public Iterable<Luggage> findAllLuggage(){

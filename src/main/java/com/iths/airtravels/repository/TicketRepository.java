@@ -11,4 +11,3 @@ public interface TicketRepository extends CrudRepository<Ticket, Long> {
     @Query("SELECT t FROM Ticket t WHERE t.user.id = :id")
     Iterable<Ticket> findTicketsByUserId(Long id);
 }
-0
