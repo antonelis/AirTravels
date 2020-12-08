@@ -2,6 +2,8 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.User;
 import com.iths.airtravels.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -9,6 +11,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
 
     final UserService userService;
 
@@ -28,7 +32,8 @@ public class UserController {
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
-    return userService.createUser(user);
+        logger.info("Created User " + user.getUsername());
+        return userService.createUser(user);
     }
 
     @DeleteMapping("/delete/{id}")

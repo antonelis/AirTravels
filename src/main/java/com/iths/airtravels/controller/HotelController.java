@@ -2,6 +2,8 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.service.HotelService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -9,6 +11,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/hotel")
 public class HotelController {
+
+    Logger logger = LoggerFactory.getLogger(HotelController.class);
 
     final HotelService hotelService;
 
@@ -33,6 +37,7 @@ public class HotelController {
 
     @PostMapping("/create")
     public Hotel createHotel(@RequestBody Hotel hotel) {
+        logger.info("Created hotel " + hotel.getName() + "in " + hotel.getLocation());
         return hotelService.createHotel(hotel);
     }
 
