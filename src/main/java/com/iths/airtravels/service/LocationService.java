@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class LocationService {
 
-    final LocationRepository locationRepository;
+    private LocationRepository locationRepository;
 
     public LocationService(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;

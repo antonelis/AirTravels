@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class HotelService {
 
-    final HotelRepository hotelRepository;
+    private HotelRepository hotelRepository;
 
     public HotelService(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;

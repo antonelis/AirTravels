@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequestMapping("/ticket")
 public class TicketController {
 
-    final TicketService ticketService;
+    private TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;

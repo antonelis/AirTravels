@@ -14,7 +14,7 @@ public class HotelController {
 
     Logger logger = LoggerFactory.getLogger(HotelController.class);
 
-    final HotelService hotelService;
+    private HotelService hotelService;
 
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;

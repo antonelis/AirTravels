@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequestMapping("/location")
 public class LocationController {
 
-    final LocationService locationService;
+    private LocationService locationService;
 
     public LocationController(LocationService locationService) {
         this.locationService = locationService;

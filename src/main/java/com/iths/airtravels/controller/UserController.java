@@ -14,7 +14,7 @@ public class UserController {
 
     Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    final UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -39,5 +39,10 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
+    }
+
+    @GetMapping("/getauthenticateduser")
+    public User getAuthenticatedUser() {
+        return userService.getAuthenticatedUser();
     }
 }

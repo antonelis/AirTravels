@@ -9,7 +9,7 @@ import java.util.Optional;
 @Service
 public class TicketService {
 
-    final TicketRepository ticketRepository;
+    private TicketRepository ticketRepository;
 
     public TicketService(TicketRepository ticketRepository) {
         this.ticketRepository = ticketRepository;

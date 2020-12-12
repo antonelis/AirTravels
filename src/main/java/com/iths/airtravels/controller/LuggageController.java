@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequestMapping("/luggage")
 public class LuggageController {
 
-    final LuggageService luggageService;
+    private LuggageService luggageService;
 
     public LuggageController(LuggageService luggageService) {
         this.luggageService = luggageService;
@@ -39,5 +39,10 @@ public class LuggageController {
     @DeleteMapping("/delete/{id}")
     public void deleteLuggage(@PathVariable Long id){
         luggageService.deleteLuggageById(id);
+    }
+
+    @GetMapping("/getluggagebyuser")
+    Iterable<Luggage> findLuggageByUser(){
+        return luggageService.findLuggageByAuthUser();
     }
 }

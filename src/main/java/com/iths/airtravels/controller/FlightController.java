@@ -10,7 +10,7 @@ import java.util.Optional;
 @RequestMapping("/flight")
 public class FlightController {
 
-    final FlightService flightService;
+    private FlightService flightService;
 
     public FlightController(FlightService flightService) {
         this.flightService = flightService;

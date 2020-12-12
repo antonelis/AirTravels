@@ -1,5 +1,6 @@
 package com.iths.airtravels.service;
 
+import com.iths.airtravels.entity.User;
 import org.springframework.stereotype.Service;
 import com.iths.airtravels.entity.Luggage;
 import com.iths.airtravels.repository.LuggageRepository;
@@ -9,13 +10,16 @@ import java.util.Optional;
 @Service
 public class LuggageService {
 
-    final LuggageRepository luggageRepository;
+    private LuggageRepository luggageRepository;
+    private UserService userService;
 
-    public LuggageService(LuggageRepository luggageRepository) {
+    public LuggageService(LuggageRepository luggageRepository, UserService userService) {
         this.luggageRepository = luggageRepository;
+        this.userService = userService;
     }
 
     public Luggage createLuggage(Luggage luggage){
+        luggage.setUser(userService.getAuthenticatedUser());
         return luggageRepository.save(luggage);
     }
 
@@ -34,5 +38,10 @@ public class LuggageService {
 
     public Iterable<Luggage> findLuggageByUserId(Long id){
         return luggageRepository.findLuggageByUserId(id);
+    }
+
+    public Iterable<Luggage> findLuggageByAuthUser(){
+        Iterable<Luggage> luggageByUser = luggageRepository.findLuggageByAuthUser();
+        return luggageByUser;
     }
 }
