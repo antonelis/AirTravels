@@ -5,7 +5,7 @@
 <div layout:fragment="site_content">
     <div class="row mt-5">
         <div class="col-6 offset-3">
-            <form th:action="@{'/saveLocation'}" method="post">
+            <form th:action="@{'/location/saveLocation'}" method="post">
                 <input type="hidden" name="id" th:value="${location.id}">
                 <div class="form-group">
                     <label th:text="#{label.city}">
@@ -34,7 +34,7 @@
             <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                  aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
-                    <form th:action="${'/deletelocation'}" method="post">
+                    <form th:action="${'/location/deletelocation'}" method="post">
                         <input type="hidden" name="id" th:value="${location.id}">
                         <div class="modal-content">
                             <div class="modal-header">

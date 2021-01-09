@@ -5,7 +5,7 @@
 <div layout:fragment="site_content">
     <div class="row mt-5">
         <div class="col-6 offset-3">
-            <form th:action="@{'/create'}" method="post">
+            <form th:action="@{'create/'}" method="post">
                 <div class="form-group ml-2">
                     <label th:text="#{label.city}">
                     </label>
@@ -38,7 +38,7 @@
                     <td th:text="${it.id}"></td>
                     <td th:text="${it.city}"></td>
                     <td th:text="${it.country}"></td>
-                    <td><a th:href="@{'/details/' + ${it.id}}" class="btn btn-info btn-sm"
+                    <td><a th:href="@{'/location/details/' + ${it.id}}" class="btn btn-info btn-sm"
                            th:text="#{label.details}"></a></td>
                     <td><a th:href="@{'/flight/'}" class="btn btn-info btn-sm"
                            th:text="#{label.flightindex}"></a></td>

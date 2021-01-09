@@ -1,27 +1,24 @@
 package com.iths.airtravels.entity;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
+@AllArgsConstructor
 public class Flight {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "flight_fromLocation")
     private Location fromLocation;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "flight_toLocation")
     private Location toLocation;
-
-    public Flight(BigDecimal price) {
-        this.price = price;
-    }
 
     public Flight(){
 

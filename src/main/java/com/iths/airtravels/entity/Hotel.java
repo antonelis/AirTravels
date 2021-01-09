@@ -1,26 +1,27 @@
 package com.iths.airtravels.entity;
 
+import lombok.AllArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Entity
+@AllArgsConstructor
 public class Hotel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
+    @Column(name = "id")
     private Long id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "price")
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "hotel_location")
+    @ManyToOne(fetch = FetchType.EAGER)
     private Location location;
 
-    public Hotel(String name, BigDecimal price) {
-        this.name = name;
-        this.price = price;
-    }
     public Hotel(){
 
     }

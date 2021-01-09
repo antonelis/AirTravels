@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@RequestMapping("/location")
+@RequestMapping("/location/")
 public class LocationController {
 
     private final LocationService locationService;
@@ -34,7 +34,7 @@ public class LocationController {
         return locationService.getAllLocations();
     }
 
-    @PostMapping(value = "/saveLocation")
+    @PostMapping("/saveLocation")
     public String saveLocation(@RequestParam(name = "id", defaultValue = "0") Long id,
                                @RequestParam(name = "location_city", defaultValue = "No City") String city,
                                @RequestParam(name = "location_country") String country) {
@@ -44,16 +44,16 @@ public class LocationController {
            location.setCountry(country);
            locationService.saveLocation(location);
         }
-        return "redirect:/";
+        return "redirect:/location/";
     }
 
-    @PostMapping(value = "/deletelocation")
+    @PostMapping("/deletelocation")
     public String deleteLocation(@RequestParam(name = "id", defaultValue = "0") Long id) {
         Location location = locationService.getLocation(id);
         if(location!=null) {
             locationService.deleteLocation(location);
         }
-        return "redirect:/";
+        return "redirect:/location/";
     }
 
     @GetMapping("/id/{id}")
@@ -66,17 +66,17 @@ public class LocationController {
                                  @RequestParam(name = "location_country") String country) {
         locationService.addLocation(new Location(city, country));
 
-        return "redirect:/";
+        return "redirect:/location/";
     }
 
-    @GetMapping(value = "/details/{id}")
+    @GetMapping("/details/{id}")
     public String details(Model model, @PathVariable(name = "id") Long id) {
         Location location = locationService.getLocation(id);
         model.addAttribute("location", location);
         return "details";
     }
 
-    @GetMapping(value = "/about")
+    @GetMapping("/about")
     public String about() {
         return "about";
     }

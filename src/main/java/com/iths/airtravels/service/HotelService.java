@@ -4,10 +4,11 @@ import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class HotelService {
+public class HotelService implements IHotelService {
 
     private HotelRepository hotelRepository;
 
@@ -15,24 +16,32 @@ public class HotelService {
         this.hotelRepository = hotelRepository;
     }
 
-    public Hotel createHotel(Hotel hotel){
-        return hotelRepository.save(hotel);
+    public Iterable<Hotel> findHotelsByLocationId(Long id){
+        return hotelRepository.findHotelsByLocationId(id);
     }
 
-    public Optional<Hotel> findHotelById(Long id){
-        return hotelRepository.findById(id);
+    @Override
+    public Hotel addHotel(Hotel hotel) {
+        return  hotelRepository.save(hotel);
     }
 
-    public Iterable<Hotel> findAllHotels(){
+    @Override
+    public List<Hotel> getAllHotels() {
         return hotelRepository.findAll();
     }
 
-    public void deleteHotelById(Long id){
-        Optional<Hotel> foundHotel = hotelRepository.findById(id);
-        hotelRepository.deleteById(foundHotel.get().getId());
+    @Override
+    public Hotel getHotel(Long id) {
+        return hotelRepository.getOne(id);
     }
 
-    public Iterable<Hotel> findHotelsByLocationId(Long id){
-        return hotelRepository.findHotelsByLocationId(id);
+    @Override
+    public void deleteHotel(Hotel hotel) {
+        hotelRepository.delete(hotel);
+    }
+
+    @Override
+    public Hotel saveHotel(Hotel hotel) {
+        return  hotelRepository.save(hotel);
     }
 }

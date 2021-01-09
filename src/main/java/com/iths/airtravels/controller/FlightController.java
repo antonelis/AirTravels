@@ -1,6 +1,7 @@
 package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Flight;
+import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.service.FlightService;
 import com.iths.airtravels.service.LocationService;
@@ -23,7 +24,7 @@ public class FlightController {
         this.locationService = locationService;
     }
 
-    @GetMapping
+    @GetMapping("/")
     public String index(Model model) {
         List<Flight> flight = flightService.findAllFlights();
         model.addAttribute("flight", flight);
@@ -46,21 +47,20 @@ public class FlightController {
                                @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price) {
 
         Location lct = locationService.getLocation(id);
-        Location lct2 = locationService.getLocation(id);
 
         if (lct != null) {
             Flight flight = new Flight();
             flight.setPrice(price);
             flight.setFromLocation(lct);
-            flight.setToLocation(lct2);
+            flight.setToLocation(lct);
 
             flightService.createFlight(flight);
         }
-        return "redirect:/";
+        return "redirect:/flight/";
     }
 
     @PostMapping(value = "/saveFlight")
-    public String saveLocation(@RequestParam(name = "id", defaultValue = "0") Long id,
+    public String saveLocation(@RequestParam(name = "location_id", defaultValue = "0") Long id,
                                @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
                                @RequestParam(name = "flight_fromLocation", defaultValue = " ") Location fromLocation,
                                @RequestParam(name = "flight_toLocation", defaultValue = " ") Location toLocation) {
