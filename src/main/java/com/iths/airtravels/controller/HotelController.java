@@ -4,17 +4,18 @@ import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.service.HotelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/hotel")
 public class HotelController {
 
     Logger logger = LoggerFactory.getLogger(HotelController.class);
 
-    private HotelService hotelService;
+    private final HotelService hotelService;
 
     public HotelController(HotelService hotelService) {
         this.hotelService = hotelService;

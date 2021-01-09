@@ -4,31 +4,39 @@ import org.springframework.stereotype.Service;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.repository.LocationRepository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
-public class LocationService {
+public class LocationService implements ILocationService {
 
-    private LocationRepository locationRepository;
+    private final LocationRepository locationRepository;
 
     public LocationService(LocationRepository locationRepository) {
         this.locationRepository = locationRepository;
     }
 
-    public Location createLocation(Location location){
-        return locationRepository.save(location);
+    @Override
+    public Location addLocation(Location location) {
+        return  locationRepository.save(location);
     }
 
-    public Optional<Location> findLocationById(Long id){
-        return locationRepository.findById(id);
-    }
-
-    public Iterable<Location> findAllLocations(){
+    @Override
+    public List<Location> getAllLocations() {
         return locationRepository.findAll();
     }
 
-    public void deleteLocationById(Long id){
-        Optional<Location> foundLocation = locationRepository.findById(id);
-        locationRepository.deleteById(foundLocation.get().getId());
+    @Override
+    public Location getLocation(Long id) {
+        return locationRepository.getOne(id);
+    }
+
+    @Override
+    public void deleteLocation(Location location) {
+        locationRepository.delete(location);
+    }
+
+    @Override
+    public Location saveLocation(Location location) {
+        return  locationRepository.save(location);
     }
 }

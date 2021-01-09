@@ -4,32 +4,40 @@ import com.iths.airtravels.entity.Flight;
 import com.iths.airtravels.repository.FlightRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FlightService {
+public class FlightService implements IFlightService {
 
-    private FlightRepository flightRepository;
+    private final FlightRepository flightRepository;
 
     public FlightService(FlightRepository flightRepository) {
         this.flightRepository = flightRepository;
     }
 
-    public Flight createFlight(Flight flight){
+    @Override
+    public Flight createFlight(Flight flight) {
         return flightRepository.save(flight);
     }
 
-    public Optional<Flight> findFlightById(Long id){
-        return flightRepository.findById(id);
-    }
-
-    public Iterable<Flight> findAllFlights(){
+    @Override
+    public List<Flight> findAllFlights() {
         return flightRepository.findAll();
     }
 
-    public void deleteFlightById(Long id){
-        Optional<Flight> foundFlight = flightRepository.findById(id);
-        flightRepository.deleteById(foundFlight.get().getId());
+    @Override
+    public Flight findFlightById(Long id) {
+        return flightRepository.getOne(id);
     }
 
+    @Override
+    public void deleteFlight(Flight flight) {
+        flightRepository.delete(flight);
+    }
+
+    @Override
+    public Flight saveFlight(Flight flight) {
+        return flightRepository.save(flight);
+    }
 }

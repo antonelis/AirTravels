@@ -1,18 +1,18 @@
 package com.iths.airtravels.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "locations")
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "city")
     private String city;
+    @Column(name = "country")
     private String country;
 
     public Location(String city, String country) {

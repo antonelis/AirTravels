@@ -2,15 +2,16 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Luggage;
 import com.iths.airtravels.service.LuggageService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/luggage")
 public class LuggageController {
 
-    private LuggageService luggageService;
+    private final LuggageService luggageService;
 
     public LuggageController(LuggageService luggageService) {
         this.luggageService = luggageService;

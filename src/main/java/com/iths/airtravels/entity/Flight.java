@@ -11,11 +11,11 @@ public class Flight {
     private Long id;
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "flight_fromLocation")
     private Location fromLocation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "flight_toLocation")
     private Location toLocation;
 

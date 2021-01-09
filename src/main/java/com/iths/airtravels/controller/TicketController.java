@@ -2,15 +2,16 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Ticket;
 import com.iths.airtravels.service.TicketService;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
+@Controller
 @RequestMapping("/ticket")
 public class TicketController {
 
-    private TicketService ticketService;
+    private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
