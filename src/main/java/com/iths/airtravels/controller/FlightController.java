@@ -1,7 +1,6 @@
 package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Flight;
-import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.service.FlightService;
 import com.iths.airtravels.service.LocationService;
@@ -35,18 +34,23 @@ public class FlightController {
         return "flightindex";
     }
 
-    @GetMapping(value = "/details/{id}")
+    @GetMapping("/flightdetails/{id}")
     public String details(Model model, @PathVariable(name = "id") Long id) {
+
         Flight flight = flightService.findFlightById(id);
         model.addAttribute("flight", flight);
-        return "details";
+
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+
+        return "flightdetails";
     }
 
     @PostMapping("/create")
-    public String createFlight(@RequestParam(name = "location_id", defaultValue = "0") Long id,
+    public String createFlight(@RequestParam(name = "location_id", defaultValue = "0") Long locationId,
                                @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price) {
 
-        Location lct = locationService.getLocation(id);
+        Location lct = locationService.getLocation(locationId);
 
         if (lct != null) {
             Flight flight = new Flight();
@@ -59,18 +63,25 @@ public class FlightController {
         return "redirect:/flight/";
     }
 
-    @PostMapping(value = "/saveFlight")
-    public String saveLocation(@RequestParam(name = "location_id", defaultValue = "0") Long id,
-                               @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
-                               @RequestParam(name = "flight_fromLocation", defaultValue = " ") Location fromLocation,
-                               @RequestParam(name = "flight_toLocation", defaultValue = " ") Location toLocation) {
+    @PostMapping("/saveFlight")
+    public String saveFlight(@RequestParam(name = "id", defaultValue = "0") Long id,
+                             @RequestParam(name = "location_id", defaultValue = "0") Long locationId,
+                             @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
+                             @RequestParam(name = "flight_fromLocation", defaultValue = " ") Location fromLocation,
+                             @RequestParam(name = "flight_toLocation", defaultValue = " ") Location toLocation) {
+
         Flight flight = flightService.findFlightById(id);
         if (flight != null) {
-            flight.setPrice(price);
-            flight.setFromLocation(fromLocation);
-            flight.setToLocation(toLocation);
+            Location lct = locationService.getLocation(locationId);
+
+            if (lct != null) {
+                flight.setPrice(price);
+                flight.setFromLocation(lct);
+                flight.setToLocation(lct);
+                flightService.saveFlight(flight);
+            }
         }
-        return "redirect:/";
+        return "redirect:/flight/";
     }
 
     @GetMapping("/findall")
@@ -83,12 +94,12 @@ public class FlightController {
         return flightService.findFlightById(id);
     }
 
-    @PostMapping(value = "/deleteflight")
+    @PostMapping("/deleteflight")
     public String deleteLocation(@RequestParam(name = "id", defaultValue = "0") Long id) {
         Flight flight = flightService.findFlightById(id);
         if (flight != null) {
             flightService.deleteFlight(flight);
         }
-        return "redirect:/";
+        return "redirect:/flight/";
     }
 }

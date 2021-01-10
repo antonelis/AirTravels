@@ -48,7 +48,7 @@
                     <td th:text="${flightit.price}"></td>
                     <td th:text="${flightit.fromLocation!=null?flightit.fromLocation.city + ' - ' + flightit.fromLocation.country : '--'}"></td>
                     <td th:text="${flightit.toLocation!=null?flightit.toLocation.city + ' - ' + flightit.toLocation.country : '--'}"></td>
-                    <td><a th:href="@{'/flightdetails/' + ${flightit.id}}" class="btn btn-info btn-sm"
+                    <td><a th:href="@{'/flight/flightdetails/' + ${flightit.id}}" class="btn btn-info btn-sm"
                            th:text="#{label.details}"></a></td>
                 </tr>
                 </tbody>

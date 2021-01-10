@@ -13,17 +13,19 @@
                     <input type="text" class="form-control" name="flight_price"
                            th:value="${flight!=null?flight.price:''}">
                 </div>
-                <div class="form-group">
+                <div class="form-group ml-2">
                     <label th:text="#{label.fromLocation}">
                     </label>
-                    <input type="text" class="form-control" name="flight_fromLocation"
-                           th:value="${flight!=null?flight.fromLocation:''}">
+                    <select class="form-control" name="location_id">
+                        <option th:each="lct : ${locations}" th:text="${lct.city} + ' / ' + ${lct.country}" th:value="${lct.id}" th:selected="${flight!=null&&flight.fromLocation!=null&&flight.fromLocation.id==lct.id}"></option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label th:text="#{label.fromLocation}">
+                <div class="form-group ml-2">
+                    <label th:text="#{label.toLocation}">
                     </label>
-                    <input type="text" class="form-control" name="flight_fromLocation"
-                           th:value="${flight!=null?flight.fromLocation:''}">
+                    <select class="form-control" name="location_id">
+                        <option th:each="lct : ${locations}" th:text="${lct.city} + ' / ' + ${lct.country}" th:value="${lct.id}" th:selected="${flight!=null&&flight.toLocation!=null&&flight.toLocation.id==lct.id}"></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-success" th:text="#{button.save}"></button>

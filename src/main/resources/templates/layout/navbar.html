@@ -12,7 +12,7 @@
                     <a class="nav-link active" aria-current="page" th:href="@{'/location/'}" th:text="#{label.home}"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/about'}" th:text="#{label.about}"></a>
+                    <a class="nav-link" th:href="@{'/location/about'}" th:text="#{label.about}"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?lng=se">SWE</a>
@@ -29,7 +29,7 @@
                         Dropdown
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{'/hotel/'}">Hotel</a></li>
+                        <li><a class="dropdown-item" th:href="@{'/hotel/'}" th:text="#{label.hotel}"></a></li>
                         <li><a class="dropdown-item" href="#">Another action</a></li>
                         <li>
                             <hr class="dropdown-divider">

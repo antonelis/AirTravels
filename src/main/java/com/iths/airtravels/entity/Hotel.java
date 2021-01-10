@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -21,6 +22,9 @@ public class Hotel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Location location;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Categories> categories;
 
     public Hotel(){
 
@@ -56,5 +60,13 @@ public class Hotel {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public List<Categories> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Categories> categories) {
+        this.categories = categories;
     }
 }
