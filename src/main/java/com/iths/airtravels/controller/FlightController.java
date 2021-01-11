@@ -2,8 +2,14 @@ package com.iths.airtravels.controller;
 
 import com.iths.airtravels.entity.Flight;
 import com.iths.airtravels.entity.Location;
+import com.iths.airtravels.entity.Users;
 import com.iths.airtravels.service.FlightService;
+import com.iths.airtravels.service.IUsersService;
 import com.iths.airtravels.service.LocationService;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +21,19 @@ import java.util.List;
 @RequestMapping("/flight")
 public class FlightController {
 
+    private IUsersService usersService;
     private final FlightService flightService;
     private final LocationService locationService;
 
-    public FlightController(FlightService flightService, LocationService locationService) {
+    public FlightController(IUsersService usersService, FlightService flightService, LocationService locationService) {
+        this.usersService = usersService;
         this.flightService = flightService;
         this.locationService = locationService;
     }
 
     @GetMapping("/")
     public String index(Model model) {
+        model.addAttribute("currentUser", getUserData());
         List<Flight> flight = flightService.findAllFlights();
         model.addAttribute("flight", flight);
 
@@ -36,7 +45,7 @@ public class FlightController {
 
     @GetMapping("/flightdetails/{id}")
     public String details(Model model, @PathVariable(name = "id") Long id) {
-
+        model.addAttribute("currentUser", getUserData());
         Flight flight = flightService.findFlightById(id);
         model.addAttribute("flight", flight);
 
@@ -85,12 +94,14 @@ public class FlightController {
     }
 
     @GetMapping("/findall")
-    public List<Flight> findAllFlights() {
+    public List<Flight> findAllFlights(Model model) {
+        model.addAttribute("currentUser", getUserData());
         return flightService.findAllFlights();
     }
 
     @GetMapping("/id/{id}")
-    public Flight findFlightById(@PathVariable Long id) {
+    public Flight findFlightById(@PathVariable Long id, Model model) {
+        model.addAttribute("currentUser", getUserData());
         return flightService.findFlightById(id);
     }
 
@@ -101,5 +112,15 @@ public class FlightController {
             flightService.deleteFlight(flight);
         }
         return "redirect:/flight/";
+    }
+
+    private Users getUserData(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            User secUser = (User)authentication.getPrincipal();
+            Users myUser = usersService.getUserByEmail(secUser.getUsername());
+            return myUser;
+        }
+        return null;
     }
 }
