@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-      layout:decorator = "layout/main.html">
+      layout:decorator="layout/main.html">
 <div layout:fragment="site_content">
     <div class="row mt-5">
         <div class="col-6 offset-3">
@@ -21,31 +21,32 @@
                 </div>
             </form>
         </div>
+        <div class="row mt-5">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th th:text="#{label.city}"></th>
+                        <th th:text="#{label.country}"></th>
+                        <th width="10%" th:text="#{label.details}"></th>
+                        <th width="10%" th:text="#{label.flightindex}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="it : ${locations}">
+                        <td th:text="${it.id}"></td>
+                        <td th:text="${it.city}"></td>
+                        <td th:text="${it.country}"></td>
+                        <td><a th:href="@{'/location/details/' + ${it.id}}" class="btn btn-info btn-sm"
+                               th:text="#{label.details}"></a></td>
+                        <td><a th:href="@{'/flight/'}" class="btn btn-info btn-sm"
+                               th:text="#{label.flightindex}"></a></td>
+                    </tr>
+                    </tbody>
+                </table>
 
-        <div class="col-12">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th th:text="#{label.city}"></th>
-                    <th th:text="#{label.country}"></th>
-                    <th width="10%" th:text="#{label.details}"></th>
-                    <th width="10%" th:text="#{label.flightindex}"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="it : ${locations}">
-                    <td th:text="${it.id}"></td>
-                    <td th:text="${it.city}"></td>
-                    <td th:text="${it.country}"></td>
-                    <td><a th:href="@{'/location/details/' + ${it.id}}" class="btn btn-info btn-sm"
-                           th:text="#{label.details}"></a></td>
-                    <td><a th:href="@{'/flight/'}" class="btn btn-info btn-sm"
-                           th:text="#{label.flightindex}"></a></td>
-                </tr>
-                </tbody>
-            </table>
-
+            </div>
         </div>
     </div>
 </div>

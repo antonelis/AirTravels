@@ -1,5 +1,5 @@
 package com.iths.airtravels.security.controller;
-
+/*
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -47,3 +47,5 @@ public class JwtAuthenticationController {
         }
     }
 }
+
+ */

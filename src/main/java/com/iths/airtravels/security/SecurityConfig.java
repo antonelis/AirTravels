@@ -1,5 +1,5 @@
 package com.iths.airtravels.security;
-
+/*
 import com.iths.airtravels.security.config.JwtAuthenticationEntryPoint;
 import com.iths.airtravels.security.config.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
@@ -94,3 +94,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 }
+
+ */
