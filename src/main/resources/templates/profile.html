@@ -5,7 +5,7 @@
 <div layout:fragment="site_content">
     <div class="row mt-5">
         <div class="col-12">
-            <h3 class="text-center">WELCOME <span th:text="${currentUser.fullName}"></span></h3>
+            <h3 class="text-center" th:text="#{label.welcome} + ' ' + ${currentUser.fullName}"></h3>
 
         </div>
 

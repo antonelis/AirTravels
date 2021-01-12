@@ -7,15 +7,15 @@
         <div class="col-6 offset-3">
             <form th:action="@{'/auth'}" method="post">
                 <div class="form-group">
-                    <label> EMAIL : </label>
+                    <label th:text="#{label.email}"></label>
                     <input type="email" name="user_email" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label> PASSWORD : </label>
+                    <label th:text="#{label.password}"></label>
                     <input type="password" name="user_password" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success float-right">SIGN IN</button>
+                    <button class="btn btn-success float-right" th:text="#{button.signin}"></button>
                 </div>
             </form>
         </div>
