@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #231291;" xmlns:th="https://www.thymeleaf.org"
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: dodgerblue" xmlns:th="https://www.thymeleaf.org"
      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{'/'}">Air Travel</a>
+        <a class="navbar-brand" th:href="@{'/'}"><img th:src="@{/logo/Logo.png}" style="width: 60%;"/></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -35,15 +35,6 @@
                     <a class="nav-link" href="JavaScript:void(0)"
                        onclick="document.getElementById('logoutFormId').submit()" th:text = "#{label.logout}"></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="?lng=se">SWE</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="?lng=en">ENG</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="?lng=ch">CHI</a>
-                </li>
                 <form th:action="@{'/logout'}" method="post" id="logoutFormId" sec:authorize="isAuthenticated()">
 
                 </form>
@@ -73,6 +64,15 @@
                 </li>
             </ul>
             <form class="d-flex">
+                <li class="nav-item">
+                    <a class="nav-link" href="?lng=se"><img th:src="@{/img/swe.jpg}"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?lng=en"><img th:src="@{/img/eng.jpg}"/></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?lng=ch"><img th:src="@{/img/cn.jpg}"/></a>
+                </li>
                 <input class="form-control me-2" type="search" th:placeholder="#{label.search}">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit" th:text="#{label.search}"></button>
             </form>
