@@ -76,6 +76,9 @@ public class HotelController {
         model.addAttribute("locations", locations);
 
         List<Categories> categories = categoriesService.getAllCategories();
+
+        categories.removeAll(hotel.getCategories());
+
         model.addAttribute("categories", categories);
 
         return "edithotel";
@@ -177,7 +180,32 @@ public class HotelController {
                 categories.add(cat);
                 hotelService.saveHotel(hotel);
 
-                return "redirect:/hotel/edithotel/"+hotelId;
+                return "redirect:/hotel/edithotel/"+hotelId+"#categoriesDiv";
+            }
+        }
+        return "redirect:/";
+    }
+
+    @PostMapping("/unassigncategory")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String unAssignCategory(@RequestParam(name = "hotel_id") Long hotelId,
+                                 @RequestParam(name = "category_id") Long categoryId) {
+        Categories cat = categoriesService.getCategories(categoryId);
+
+        if(cat!=null){
+            Hotel hotel = hotelService.getHotel(hotelId);
+
+            if(hotel!=null){
+
+                List<Categories> categories = hotel.getCategories();
+
+                if(categories==null){
+                    categories = new ArrayList<>();
+                }
+                categories.remove(cat);
+                hotelService.saveHotel(hotel);
+
+                return "redirect:/hotel/edithotel/"+hotelId+"#categoriesDiv";
             }
         }
         return "redirect:/";
