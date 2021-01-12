@@ -86,19 +86,21 @@ public class FlightController {
     @PostMapping("/saveFlight")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String saveFlight(@RequestParam(name = "id", defaultValue = "0") Long id,
-                             @RequestParam(name = "location_id", defaultValue = "0") Long locationId,
+                             @RequestParam(name = "fromlocation_id", defaultValue = "0") Long fromlocationId,
+                             @RequestParam(name = "tolocation_id", defaultValue = "0") Long tolocationId,
                              @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
                              @RequestParam(name = "flight_fromLocation", defaultValue = " ") Location fromLocation,
                              @RequestParam(name = "flight_toLocation", defaultValue = " ") Location toLocation) {
 
         Flight flight = flightService.findFlightById(id);
         if (flight != null) {
-            Location lct = locationService.getLocation(locationId);
+            Location flct = locationService.getLocation(fromlocationId);
+            Location tlct = locationService.getLocation(tolocationId);
 
-            if (lct != null) {
+            if (flct != null && tlct !=null) {
                 flight.setPrice(price);
-                flight.setFromLocation(lct);
-                flight.setToLocation(lct);
+                flight.setFromLocation(flct);
+                flight.setToLocation(tlct);
                 flightService.saveFlight(flight);
             }
         }

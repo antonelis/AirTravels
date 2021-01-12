@@ -62,4 +62,9 @@ public class UsersService implements IUsersService {
         }
         return null;
     }
+
+    @Override
+    public Users saveUser(Users user) {
+        return usersRepository.save(user);
+    }
 }
