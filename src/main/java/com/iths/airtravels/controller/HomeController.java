@@ -1,8 +1,10 @@
 package com.iths.airtravels.controller;
 
+import com.iths.airtravels.entity.Flight;
+import com.iths.airtravels.entity.Hotel;
+import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.entity.Users;
-import com.iths.airtravels.service.IUsersService;
-import com.iths.airtravels.service.UsersService;
+import com.iths.airtravels.service.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +25,16 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-    private IUsersService usersService;
+    private final IUsersService usersService;
+    private final FlightService flightService;
+    private final LocationService locationService;
+    private final HotelService hotelService;
 
     @Value("${file.avatar.viewPath}")
     private String viewPath;
@@ -39,8 +45,24 @@ public class HomeController {
     @Value("${file.avatar.defaultPicture}")
     private String defaultPicture;
 
-    public HomeController(UsersService usersService) {
+    public HomeController(UsersService usersService, FlightService flightService, LocationService locationService, HotelService hotelService) {
         this.usersService = usersService;
+        this.flightService = flightService;
+        this.locationService = locationService;
+        this.hotelService = hotelService;
+    }
+
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("currentUser", getUserData());
+        List<Flight> flight = flightService.findAllFlights();
+        model.addAttribute("flight", flight);
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+        List<Hotel> hotels = hotelService.getAllHotels();
+        model.addAttribute("hotels", hotels);
+
+        return "home";
     }
 
     @GetMapping(value = "/403")

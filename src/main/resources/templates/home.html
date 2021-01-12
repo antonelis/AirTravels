@@ -1,11 +1,64 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Air Travels</title>
-</head>
-<body>
-<h1>Welcome to the Air Travels!</h1>
-<p>Click <a th:href="@{/application}">here</a> to continue to the app.</p>
-<p>Click <a th:href="@{/admin}">here</a> to continue to the admin console.</p>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main.html">
+<div layout:fragment="site_content">
+
+    <div class="row mt-5">
+        <img th:src="@{/img/flight.jpg}" style="width: 30%;"/>
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th th:text="#{label.price}"></th>
+                    <th th:text="#{label.fromLocation}"></th>
+                    <th th:text="#{label.toLocation}"></th>
+                    <th width="10%" th:text="#{label.details}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="flightit : ${flight}">
+                    <td th:text="${flightit.id}"></td>
+                    <td th:text="${flightit.price}"></td>
+                    <td th:text="${flightit.fromLocation!=null?flightit.fromLocation.city + ' - ' + flightit.fromLocation.country : '--'}"></td>
+                    <td th:text="${flightit.toLocation!=null?flightit.toLocation.city + ' - ' + flightit.toLocation.country : '--'}"></td>
+                    <td><a th:href="@{'/flight/flightdetails/' + ${flightit.id}}" class="btn btn-info btn-sm"
+                           th:text="#{label.details}"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <img th:src="@{/img/hotel.jpg}" style="width: 30%;"/>
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th th:text="#{label.name}"></th>
+                    <th th:text="#{label.price}"></th>
+                    <th th:text="#{label.location}"></th>
+                    <th th:text="#{label.categories}"></th>
+                    <th width="10%" th:text="#{label.details}"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="hotel : ${hotels}">
+                    <td th:text="${hotel.id}"></td>
+                    <td th:text="${hotel.name}"></td>
+                    <td th:text="${hotel.price}"></td>
+                    <td th:text="${hotel.location !=null? hotel.location.city + ' / ' + hotel.location.country : '--'}"></td>
+                    <td>
+                        <span th:each="cat : ${hotel.categories}" th:text="${cat.name}" style="display: block;"></span>
+                    </td>
+                    <td><a th:href="@{'/hotel/hoteldetails/' + ${hotel.id}}" class="btn btn-info btn-sm"
+                           th:text="#{label.details}"></a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
 </html>
