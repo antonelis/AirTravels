@@ -1,15 +1,13 @@
 package com.iths.airtravels.controller;
 
-import com.iths.airtravels.entity.Categories;
-import com.iths.airtravels.entity.Hotel;
-import com.iths.airtravels.entity.Location;
-import com.iths.airtravels.entity.Users;
+import com.iths.airtravels.entity.*;
 import com.iths.airtravels.service.CategoriesService;
 import com.iths.airtravels.service.HotelService;
 import com.iths.airtravels.service.IUsersService;
 import com.iths.airtravels.service.LocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +26,7 @@ public class HotelController {
 
     Logger logger = LoggerFactory.getLogger(HotelController.class);
 
-    private IUsersService usersService;
+    private final IUsersService usersService;
     private final HotelService hotelService;
     private final LocationService locationService;
     private final CategoriesService categoriesService;
@@ -82,22 +80,36 @@ public class HotelController {
         return hotelService.findHotelsByLocationId(id);
     }
 
-    @PostMapping("/hotel/saveHotel")
-    public String saveHotel(@RequestParam(name = "location_id", defaultValue = "0") Long id,
-                            @RequestParam(name = "location_city", defaultValue = "No City") String name,
-                            @RequestParam(name = "location_country") BigDecimal price) {
-        Location lct = locationService.getLocation(id);
-        if (lct != null) {
-            Hotel hotel = new Hotel();
-            hotel.setName(name);
-            hotel.setPrice(price);
-            hotel.setLocation(lct);
-            hotelService.saveHotel(hotel);
+    @PostMapping("/saveHotel")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String saveHotel(@RequestParam(name = "id", defaultValue = "0") Long id,
+                            @RequestParam(name = "location_id", defaultValue = "0") Long locationId,
+                            @RequestParam(name = "hotel_name", defaultValue = "No City") String name,
+                            @RequestParam(name = "hotel_price") BigDecimal price) {
+        Hotel hotel = hotelService.getHotel(id);
+        if (hotel != null) {
+            Location lct = locationService.getLocation(locationId);
+            if (lct != null) {
+                hotel.setName(name);
+                hotel.setPrice(price);
+                hotel.setLocation(lct);
+                hotelService.saveHotel(hotel);
+            }
         }
         return "redirect:/hotel/";
     }
 
-    @PostMapping("/create")
+    @GetMapping("/addhotel")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String addLocation(Model model){
+        model.addAttribute("currentUser", getUserData());
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+        return "addhotel";
+    }
+
+    @PostMapping("/addhotel")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String createHotel(@RequestParam(name = "location_id", defaultValue = "0") Long id,
                               @RequestParam(name = "hotel_name", defaultValue = "No Name") String name,
                               @RequestParam(name = "hotel_price") BigDecimal price) {
@@ -116,6 +128,7 @@ public class HotelController {
     }
 
     @PostMapping("/deletehotel")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String deleteHotel(@RequestParam(name = "id", defaultValue = "0") Long id) {
         Hotel hotel = hotelService.getHotel(id);
         if (hotel != null) {
@@ -134,6 +147,7 @@ public class HotelController {
     }
 
     @PostMapping("/assigncategory")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String assignCategory(@RequestParam(name = "hotel_id") Long hotelId,
                                  @RequestParam(name = "category_id") Long categoryId) {
         Categories cat = categoriesService.getCategories(categoryId);

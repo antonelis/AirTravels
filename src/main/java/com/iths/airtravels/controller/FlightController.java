@@ -6,6 +6,7 @@ import com.iths.airtravels.entity.Users;
 import com.iths.airtravels.service.FlightService;
 import com.iths.airtravels.service.IUsersService;
 import com.iths.airtravels.service.LocationService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -55,7 +56,17 @@ public class FlightController {
         return "flightdetails";
     }
 
-    @PostMapping("/create")
+    @GetMapping("/addflight")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String addLocation(Model model){
+        model.addAttribute("currentUser", getUserData());
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+        return "addflight";
+    }
+
+    @PostMapping("/addflight")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String createFlight(@RequestParam(name = "location_id", defaultValue = "0") Long locationId,
                                @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price) {
 
@@ -73,6 +84,7 @@ public class FlightController {
     }
 
     @PostMapping("/saveFlight")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String saveFlight(@RequestParam(name = "id", defaultValue = "0") Long id,
                              @RequestParam(name = "location_id", defaultValue = "0") Long locationId,
                              @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
@@ -106,6 +118,7 @@ public class FlightController {
     }
 
     @PostMapping("/deleteflight")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String deleteLocation(@RequestParam(name = "id", defaultValue = "0") Long id) {
         Flight flight = flightService.findFlightById(id);
         if (flight != null) {

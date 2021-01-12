@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #231291;" xmlns:th="https://www.thymeleaf.org" xmlns:sec = "http://www.thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #231291;" xmlns:th="https://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{'/'}">Air Travel</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -9,7 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{'/location/'}" th:text="#{label.home}"></a>
+                    <a class="nav-link active" aria-current="page" th:href="@{'/location/'}"
+                       th:text="#{label.location}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{'/hotel/'}" th:text="#{label.hotel}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{'/flight/'}" th:text="#{label.flightindex}"></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{'/location/about'}" th:text="#{label.about}"></a>
@@ -21,7 +29,8 @@
                     <a class="nav-link" th:href="@{'/login'}">Login</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="JavaScript:void(0)" onclick="document.getElementById('logoutFormId').submit()">Logout</a>
+                    <a class="nav-link" href="JavaScript:void(0)"
+                       onclick="document.getElementById('logoutFormId').submit()">Logout</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="?lng=se">SWE</a>
@@ -41,9 +50,17 @@
                         Dropdown
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{'/hotel/'}" th:text="#{label.hotel}"></a></li>
                         <li class="nav-item">
-                            <a class="dropdown-item" th:href="@{'/location/addlocation'}" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">Add Location</a>
+                            <a class="dropdown-item" th:href="@{'/location/addlocation'}"
+                               sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">Add Location</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" th:href="@{'/flight/addflight'}"
+                               sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">Add Flight</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item" th:href="@{'/hotel/addhotel'}"
+                               sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">Add Hotel</a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
