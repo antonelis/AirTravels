@@ -65,6 +65,22 @@ public class HotelController {
         return "hoteldetails";
     }
 
+    @GetMapping("/edithotel/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String editHotel(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("currentUser", getUserData());
+        Hotel hotel = hotelService.getHotel(id);
+        model.addAttribute("hotel", hotel);
+
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+
+        List<Categories> categories = categoriesService.getAllCategories();
+        model.addAttribute("categories", categories);
+
+        return "edithotel";
+    }
+
     @GetMapping("/findall")
     public List<Hotel> findAllHotels() {
         return hotelService.getAllHotels();
@@ -96,7 +112,7 @@ public class HotelController {
                 hotelService.saveHotel(hotel);
             }
         }
-        return "redirect:/hotel/";
+        return "redirect:/hotel/edithotel/"+id;
     }
 
     @GetMapping("/addhotel")
@@ -161,7 +177,7 @@ public class HotelController {
                 categories.add(cat);
                 hotelService.saveHotel(hotel);
 
-                return "redirect:/hotel/hoteldetails/"+hotelId;
+                return "redirect:/hotel/edithotel/"+hotelId;
             }
         }
         return "redirect:/";

@@ -12,7 +12,6 @@
                     <th th:text="#{label.city}"></th>
                     <th th:text="#{label.country}"></th>
                     <th width="10%" th:text="#{label.details}"></th>
-                    <th width="10%" th:text="#{label.flightindex}"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,8 +21,6 @@
                     <td th:text="${it.country}"></td>
                     <td><a th:href="@{'/location/details/' + ${it.id}}" class="btn btn-info btn-sm"
                            th:text="#{label.details}"></a></td>
-                    <td><a th:href="@{'/flight/'}" class="btn btn-info btn-sm"
-                           th:text="#{label.flightindex}"></a></td>
                 </tr>
                 </tbody>
             </table>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main.html">
+<div layout:fragment="site_content">
+    <div class="row mt-5">
+        <div class="col-6 offset-3">
+            <form th:action="@{'/hotel/saveHotel'}" method="post">
+                <input type="hidden" name="id" th:value="${hotel.id}">
+                <div class="form-group">
+                    <label th:text="#{label.name}">
+                    </label>
+                    <input type="text" class="form-control" name="hotel_name"
+                           th:value="${hotel!=null?hotel.name:''}">
+                </div>
+                <div class="form-group">
+                    <label th:text="#{label.price}">
+                    </label>
+                    <input type="text" class="form-control" name="hotel_price"
+                           th:value="${hotel!=null?hotel.price:''}">
+                </div>
+                <div class="form-group ml-2">
+                    <label th:text="#{label.location}">
+                    </label>
+                    <select class="form-control" name="location_id">
+                        <option th:each="lct : ${locations}" th:text="${lct.city} + ' / ' + ${lct.country}"
+                                th:value="${lct.id}"
+                                th:selected="${hotel!=null&&hotel.location!=null&&hotel.location.id==lct.id}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success" th:text="#{button.save}"></button>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-danger ml-2" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            th:text="#{button.delete}">
+                    </button>
+                </div>
+            </form>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form th:action="${'/hotel/deletehotel'}" method="post">
+                        <input type="hidden" name="id" th:value="${hotel.id}">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h5 th:text="#{message.confirm}"></h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                        th:text="#{button.cancel}"></button>
+                                <button class="btn btn-danger ml-2" th:text="#{button.delete}"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6 offset-3">
+            <table class="table table-striped">
+                <tbody>
+                <tr th:each = "cat : ${hotel.categories}">
+                    <td th:text="${cat.name}"></td>
+                    <td width="10%">
+                        <button class="btn btn-danger btn-sm"> - </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6 offset-3">
+            <table class="table table-striped">
+                <tbody>
+
+                <tr th:each="cat : ${categories}">
+                    <form th:action="@{'/hotel/assigncategory'}" method="post">
+                        <input type="hidden" th:value="${hotel.id}" name="hotel_id">
+                        <input type="hidden" th:value="${cat.id}" name="category_id">
+                        <td th:text="${cat.name}"></td>
+                        <td width="10%">
+                            <button class="btn btn-success btn-sm"> + </button>
+                        </td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>
