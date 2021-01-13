@@ -3,11 +3,14 @@
       xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
       layout:decorator="layout/main.html">
 <div layout:fragment="site_content">
-    <div class="row mt-5">
+    <div class="row mt-2">
+    <h3 class="display-3 text-center" th:text = "#{label.location}" style="font-family: 'Georgia'"></h3>
+    </div>
+    <div class="row mt-1">
         <div class="col-12">
             <table class="table table-striped">
                 <thead>
-                <tr>
+                <tr style="font-family: 'Georgia'">
                     <th>ID</th>
                     <th th:text="#{label.city}"></th>
                     <th th:text="#{label.country}"></th>

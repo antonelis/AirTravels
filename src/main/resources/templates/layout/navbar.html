@@ -10,6 +10,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{'/'}"
+                       th:text="#{label.home}"></a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{'/location/'}"
                        th:text="#{label.location}"></a>
                 </li>
@@ -64,13 +68,13 @@
                 </li>
             </ul>
             <form class="d-flex">
-                <li class="nav-item">
+                <li class="nav-item" style="list-style-type:none;">
                     <a class="nav-link" href="?lng=se"><img th:src="@{/img/swe.jpg}"/></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="list-style-type:none;">
                     <a class="nav-link" href="?lng=en"><img th:src="@{/img/eng.jpg}"/></a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="list-style-type:none;">
                     <a class="nav-link" href="?lng=ch"><img th:src="@{/img/cn.jpg}"/></a>
                 </li>
                 <input class="form-control me-2" type="search" th:placeholder="#{label.search}">

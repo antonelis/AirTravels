@@ -8,17 +8,17 @@
             <div class="form-group">
                 <label th:text="#{label.name}">
                 </label>
-                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.name:''}">
+                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.name:''}" readonly>
             </div>
             <div class="form-group">
                 <label th:text="#{label.price}">
                 </label>
-                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.price:''}">
+                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.price:''}" readonly>
             </div>
             <div class="form-group ml-2">
                 <label th:text="#{label.location}">
                 </label>
-                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.location.city:''}">
+                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.location.city:''}" readonly>
             </div>
             <div class="form-group">
                 <a th:href="@{'/hotel/edithotel/'+${hotel.id}}" class="btn btn-success"
