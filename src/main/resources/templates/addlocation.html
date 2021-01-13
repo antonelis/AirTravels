@@ -5,7 +5,7 @@
 <div layout:fragment="site_content">
     <div class="row mt-5">
         <div class="col-6 offset-3">
-            <h3 class="text-center">Add Location</h3>
+            <h3 class="text-center" th:text="#{button.addlocation}"></h3>
             <form th:action="@{'addlocation/'}" method="post">
                 <div class="form-group ml-2">
                     <label th:text="#{label.city}">

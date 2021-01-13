@@ -1,5 +1,7 @@
 package com.iths.airtravels.controller;
 
+import com.iths.airtravels.entity.Categories;
+import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.entity.Users;
 import com.iths.airtravels.service.IUsersService;
@@ -53,6 +55,19 @@ public class LocationController {
            locationService.saveLocation(location);
         }
         return "redirect:/location/";
+    }
+    @GetMapping("/editlocation/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String editLocation(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("currentUser", getUserData());
+        Location location = locationService.getLocation(id);
+        model.addAttribute("location", location);
+
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+
+
+        return "editlocation";
     }
 
     @PostMapping("/deletelocation")
