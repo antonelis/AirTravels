@@ -1,8 +1,6 @@
 package com.iths.airtravels.controller;
 
-import com.iths.airtravels.entity.Flight;
-import com.iths.airtravels.entity.Location;
-import com.iths.airtravels.entity.Users;
+import com.iths.airtravels.entity.*;
 import com.iths.airtravels.service.FlightService;
 import com.iths.airtravels.service.IUsersService;
 import com.iths.airtravels.service.LocationService;
@@ -81,6 +79,19 @@ public class FlightController {
             flightService.createFlight(flight);
         }
         return "redirect:/flight/";
+    }
+    @GetMapping("/editflight/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
+    public String editFlight(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("currentUser", getUserData());
+        Flight flight = flightService.findFlightById(id);
+        model.addAttribute("flight", flight);
+
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+
+
+        return "editflight";
     }
 
     @PostMapping("/saveFlight")

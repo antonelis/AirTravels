@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorator="layout/main.html">
 <div layout:fragment="site_content">
     <div class="row mt-5">
@@ -11,57 +11,23 @@
                     <label th:text="#{label.price}">
                     </label>
                     <input type="text" class="form-control" name="flight_price"
-                           th:value="${flight!=null?flight.price:''}">
+                           th:value="${flight!=null?flight.price:''}" readonly>
                 </div>
                 <div class="form-group ml-2">
                     <label th:text="#{label.fromLocation}">
                     </label>
-                    <select class="form-control" name="fromlocation_id">
-                        <option th:each="lct : ${locations}" th:text="${lct.city} + ' / ' + ${lct.country}" th:value="${lct.id}" th:selected="${flight!=null&&flight.fromLocation!=null&&flight.fromLocation.id==lct.id}"></option>
-                    </select>
+                    <input type="text" class="form-control plain-text" th:value="${flight!=null?flight.fromLocation.city:''}" readonly>
                 </div>
                 <div class="form-group ml-2">
                     <label th:text="#{label.toLocation}">
                     </label>
-                    <select class="form-control" name="tolocation_id">
-                        <option th:each="lct : ${locations}" th:text="${lct.city} + ' / ' + ${lct.country}" th:value="${lct.id}" th:selected="${flight!=null&&flight.toLocation!=null&&flight.toLocation.id==lct.id}"></option>
-                    </select>
+                    <input type="text" class="form-control plain-text" th:value="${flight!=null?flight.toLocation.city:''}" readonly>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-success" th:text="#{button.save}"></button>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-danger ml-2" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                            th:text="#{button.delete}">
-
-                    </button>
-
+                    <a th:href="@{'/flight/editflight/'+${flight.id}}" class="btn btn-success"
+                       sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">EDIT</a>
                 </div>
             </form>
-
-            <!-- Modal -->
-            <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <form th:action="${'/flight/deleteflight'}" method="post">
-                        <input type="hidden" name="id" th:value="${flight.id}">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel"></h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h5 th:text="#{message.confirm}"></h5>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                        th:text="#{button.cancel}"></button>
-                                <button class="btn btn-danger ml-2" th:text="#{button.delete}"></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 </div>
