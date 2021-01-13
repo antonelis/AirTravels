@@ -23,9 +23,14 @@
                     </label>
                     <input type="text" class="form-control plain-text" th:value="${flight!=null?flight.toLocation.city:''}" readonly>
                 </div>
-                <div class="form-group">
+                <div class="modal-footer">  <div class="form-group">
                     <a th:href="@{'/flight/editflight/'+${flight.id}}" class="btn btn-success"
-                       sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">EDIT</a>
+                       sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')" th:text="#{label.edit}"></a>
+                </div>
+                <div class="form-group">
+                    <a th:href="@{'/buyflight/'+${flight.id}}" class="btn btn-success"
+                       sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_MODERATOR')" th:text="#{label.buy}"></a>
+                </div>
                 </div>
             </form>
         </div>

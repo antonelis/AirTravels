@@ -140,6 +140,21 @@ public class HomeController {
         return "redirect:/";
 
     }
+    @GetMapping("/buyflight/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_MODERATOR')")
+    public String buyFlight(Model model, @PathVariable(name = "id") Long id) {
+        model.addAttribute("currentUser", getUserData());
+        Flight flight = flightService.findFlightById(id);
+        model.addAttribute("flight", flight);
+
+        List<Location> locations = locationService.getAllLocations();
+        model.addAttribute("locations", locations);
+
+
+        return "buyflight";
+    }
+
+
 
     @GetMapping(value = "/viewphoto/{url}", produces = {MediaType.IMAGE_JPEG_VALUE})
     public @ResponseBody byte[] viewProfilePhoto(@PathVariable(name = "url") String url) throws IOException{

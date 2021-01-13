@@ -16,13 +16,16 @@
                 <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.price:''}" readonly>
             </div>
             <div class="form-group ml-2">
-                <label th:text="#{label.location}">
+                <label th:text="#{label.city}">
                 </label>
-                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.location.city:''}" readonly>
+                <input type="text" class="form-control plain-text" th:value="${hotel!=null?hotel.location.city:''}"
+                       readonly>
             </div>
-            <div class="form-group">
-                <a th:href="@{'/hotel/edithotel/'+${hotel.id}}" class="btn btn-success"
-                   sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')">EDIT</a>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <a th:href="@{'/hotel/edithotel/'+${hotel.id}}" class="btn btn-success"
+                       sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')" th:text="#{label.edit}"></a>
+                </div>
             </div>
         </div>
     </div>

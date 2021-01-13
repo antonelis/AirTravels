@@ -26,8 +26,9 @@
                         <option th:each="lct : ${locations}" th:text = "${lct.city} + ' / ' + ${lct.country}" th:value="${lct.id}"></option>
                     </select>
                 </div>
-                <div class="form-group ml-2">
+                <div class="modal-footer">  <div class="form-group ml-2">
                     <button class="btn btn-success" th:text="#{button.addflight}"></button>
+                </div>
                 </div>
             </form>
         </div>
