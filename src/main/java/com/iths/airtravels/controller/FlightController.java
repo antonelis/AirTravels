@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/flight")
 public class FlightController {
 
-    private IUsersService usersService;
+    private final IUsersService usersService;
     private final FlightService flightService;
     private final LocationService locationService;
 
@@ -80,6 +80,7 @@ public class FlightController {
         }
         return "redirect:/flight/";
     }
+
     @GetMapping("/editflight/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MODERATOR')")
     public String editFlight(Model model, @PathVariable(name = "id") Long id) {
@@ -99,9 +100,7 @@ public class FlightController {
     public String saveFlight(@RequestParam(name = "id", defaultValue = "0") Long id,
                              @RequestParam(name = "fromlocation_id", defaultValue = "0") Long fromlocationId,
                              @RequestParam(name = "tolocation_id", defaultValue = "0") Long tolocationId,
-                             @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price,
-                             @RequestParam(name = "flight_fromLocation", defaultValue = " ") Location fromLocation,
-                             @RequestParam(name = "flight_toLocation", defaultValue = " ") Location toLocation) {
+                             @RequestParam(name = "flight_price", defaultValue = "0") BigDecimal price) {
 
         Flight flight = flightService.findFlightById(id);
         if (flight != null) {

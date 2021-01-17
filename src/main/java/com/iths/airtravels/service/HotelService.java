@@ -5,12 +5,11 @@ import com.iths.airtravels.repository.HotelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class HotelService implements IHotelService {
 
-    private HotelRepository hotelRepository;
+    private final HotelRepository hotelRepository;
 
     public HotelService(HotelRepository hotelRepository) {
         this.hotelRepository = hotelRepository;

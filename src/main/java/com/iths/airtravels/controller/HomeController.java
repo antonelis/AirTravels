@@ -4,6 +4,7 @@ import com.iths.airtravels.entity.Flight;
 import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.entity.Users;
+import com.iths.airtravels.sender.Sender;
 import com.iths.airtravels.service.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -31,6 +32,7 @@ import java.util.List;
 @RequestMapping("/")
 public class HomeController {
 
+    private final Sender sender;
     private final IUsersService usersService;
     private final FlightService flightService;
     private final LocationService locationService;
@@ -45,7 +47,8 @@ public class HomeController {
     @Value("${file.avatar.defaultPicture}")
     private String defaultPicture;
 
-    public HomeController(UsersService usersService, FlightService flightService, LocationService locationService, HotelService hotelService) {
+    public HomeController(Sender sender, UsersService usersService, FlightService flightService, LocationService locationService, HotelService hotelService) {
+        this.sender = sender;
         this.usersService = usersService;
         this.flightService = flightService;
         this.locationService = locationService;
@@ -106,6 +109,7 @@ public class HomeController {
             newUser.setEmail(email);
 
             if (usersService.creatUser(newUser) != null) {
+                sender.sendMessage();
                 return "redirect:/register?success";
             }
 

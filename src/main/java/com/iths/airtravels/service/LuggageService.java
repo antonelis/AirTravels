@@ -11,15 +11,15 @@ import java.util.Optional;
 public class LuggageService {
 
     private LuggageRepository luggageRepository;
-    private UserService userService;
+   // private UserService userService;
 
-    public LuggageService(LuggageRepository luggageRepository, UserService userService) {
+    public LuggageService(LuggageRepository luggageRepository){//, UserService userService) {
         this.luggageRepository = luggageRepository;
-        this.userService = userService;
+       // this.userService = userService;
     }
 
     public Luggage createLuggage(Luggage luggage){
-        luggage.setUser(userService.getAuthenticatedUser());
+      //  luggage.setUser(userService.getAuthenticatedUser());
         return luggageRepository.save(luggage);
     }
 

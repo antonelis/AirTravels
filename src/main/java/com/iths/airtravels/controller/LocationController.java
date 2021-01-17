@@ -1,7 +1,5 @@
 package com.iths.airtravels.controller;
 
-import com.iths.airtravels.entity.Categories;
-import com.iths.airtravels.entity.Hotel;
 import com.iths.airtravels.entity.Location;
 import com.iths.airtravels.entity.Users;
 import com.iths.airtravels.service.IUsersService;
@@ -21,7 +19,7 @@ import java.util.List;
 @RequestMapping("/location/")
 public class LocationController {
 
-    private IUsersService usersService;
+    private final IUsersService usersService;
     private final LocationService locationService;
 
     public LocationController(IUsersService usersService, LocationService locationService) {

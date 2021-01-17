@@ -3,7 +3,6 @@ package com.iths.airtravels.entity;
 import lombok.AllArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.util.List;
 

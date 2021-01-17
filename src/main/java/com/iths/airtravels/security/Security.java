@@ -41,15 +41,15 @@ public class Security extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/", "/css/**", "/js/**").permitAll();
 
         http.formLogin()
-                .loginPage("/login").permitAll()  // login.html
-                .usernameParameter("user_email")  // input type = "email" name = "user_email"
-                .passwordParameter("user_password") // input type = "email" name = "user_email"
-                .loginProcessingUrl("/auth").permitAll()  // <form th:action = "@{'/auth'}" method = "post">
+                .loginPage("/login").permitAll()
+                .usernameParameter("user_email")
+                .passwordParameter("user_password")
+                .loginProcessingUrl("/auth").permitAll()
                 .failureUrl("/login?error")
                 .defaultSuccessUrl("/profile");
 
         http.logout()
-                .logoutUrl("/logout").permitAll() // <form th:action = "@{'/logout'}" method = "post">
+                .logoutUrl("/logout").permitAll()
                 .logoutSuccessUrl("/login");
 
 

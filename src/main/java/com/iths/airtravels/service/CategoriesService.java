@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class CategoriesService implements ICategoriesService{
 
-    private CategoriesRepository categoriesRepository;
+    private final CategoriesRepository categoriesRepository;
 
     public CategoriesService(CategoriesRepository categoriesRepository) {
         this.categoriesRepository = categoriesRepository;
