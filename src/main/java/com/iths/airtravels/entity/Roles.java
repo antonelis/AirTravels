@@ -23,6 +23,7 @@ public class Roles implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
+
     @Override
     public String getAuthority() {
         return this.role;
